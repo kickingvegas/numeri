@@ -103,7 +103,7 @@ equivalent. The result is copied into the `kill-ring'."
     (kill-new (number-to-string result))
     result))
 
-(defalias 'numeri-number-to-roman 'numeri-arabic-to-roman)
+(defalias #'numeri-number-to-roman 'numeri-arabic-to-roman)
 
 (provide 'numeri)
 ;;; numeri.el ends here
