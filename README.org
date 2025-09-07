@@ -1,10 +1,12 @@
+[[https://melpa.org/#/numeri][file:https://melpa.org/packages/numeri-badge.svg]] [[https://stable.melpa.org/#/numeri][file:https://stable.melpa.org/packages/numeri-badge.svg]]
+
 * numeri
 
 Numeri is an Emacs Lisp package to support the conversion of [[https://en.wikipedia.org/wiki/Hindu–Arabic_numeral_system][Hindu-Arabic numbers]] to [[https://en.wikipedia.org/wiki/Roman_numerals][Roman]] and vice-versa. It is built off utility functions provided by the Org (~ox~) and reStructuredText (~rst~) packages. Only integer numbers are supported.
 
 * Install
 
-Install ~numeri~ from MELPA or MELPA stable (TBD). The commands in the package are auto-loaded so no changes are required in your initialization file.
+Install ~numeri~ from [[https://melpa.org/#/numeri][MELPA]] or [[https://stable.melpa.org/#/numeri][MELPA stable]]. The commands in the package are auto-loaded so no changes are required in your initialization file.
 
 If installed from source, you will need to require the package ~numeri~ in your Emacs initialization file.
 

@@ -5,7 +5,7 @@
 ;; Author: Charles Choi <kickingvegas@gmail.com>
 ;; URL: https://github.com/kickingvegas/numeri
 ;; Keywords: tools
-;; Version: 0.1.0
+;; Version: 0.1.1-rc.1
 ;; Package-Requires: ((emacs "29.1"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -103,7 +103,7 @@ equivalent. The result is copied into the `kill-ring'."
     (kill-new (number-to-string result))
     result))
 
-(defalias 'numeri-number-to-roman 'numeri-arabic-to-roman)
+(defalias #'numeri-number-to-roman 'numeri-arabic-to-roman)
 
 (provide 'numeri)
 ;;; numeri.el ends here
