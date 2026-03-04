@@ -1,6 +1,6 @@
 ;;; numeri.el --- Roman Numeral Conversion Library   -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2025  Charles Choi
+;; Copyright (C) 2025-2026 Charles Choi
 
 ;; Author: Charles Choi <kickingvegas@gmail.com>
 ;; URL: https://github.com/kickingvegas/numeri
@@ -27,8 +27,7 @@
 
 ;; Numeri is an Emacs Lisp package to support the conversion of Hindu-Arabic
 ;; numbers to Roman and vice-versa. It is built off utility functions provided
-;; by the Org (ox) and reStructuredText (rst) packages. Only integer numbers are
-;; supported.
+;; by the reStructuredText (rst) package. Only integer numbers are supported.
 
 ;; INSTALL
 
@@ -59,7 +58,6 @@
 
 ;;; Code:
 (require 'rst)
-(require 'ox)
 
 ;;;###autoload (autoload 'numeri-arabic-to-roman "numeri" nil t)
 (defun numeri-arabic-to-roman (arg1 &optional arg2)
@@ -75,8 +73,8 @@ equivalent. The result is copied into the `kill-ring'."
   (let ((result nil))
     (if (region-active-p)
         (let ((n (string-to-number (buffer-substring-no-properties arg1 arg2))))
-          (setq result (org-export-number-to-roman n)))
-      (setq result (org-export-number-to-roman arg1)))
+          (setq result (rst-arabic-to-roman n)))
+      (setq result (rst-arabic-to-roman arg1)))
 
     (message "%s" result)
     (kill-new result)
