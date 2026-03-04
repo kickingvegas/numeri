@@ -1,11 +1,11 @@
 ;;; numeri.el --- Roman Numeral Conversion Library   -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2025  Charles Choi
+;; Copyright (C) 2025-2026 Charles Choi
 
 ;; Author: Charles Choi <kickingvegas@gmail.com>
 ;; URL: https://github.com/kickingvegas/numeri
 ;; Keywords: tools
-;; Version: 1.0.0
+;; Version: 1.0.1-rc.1
 ;; Package-Requires: ((emacs "29.1"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -27,8 +27,7 @@
 
 ;; Numeri is an Emacs Lisp package to support the conversion of Hindu-Arabic
 ;; numbers to Roman and vice-versa. It is built off utility functions provided
-;; by the Org (ox) and reStructuredText (rst) packages. Only integer numbers are
-;; supported.
+;; by the reStructuredText (rst) package. Only integer numbers are supported.
 
 ;; INSTALL
 
@@ -59,7 +58,20 @@
 
 ;;; Code:
 (require 'rst)
-(require 'ox)
+
+(defgroup numeri nil
+  "Options for numeri."
+  :tag "Numeri")
+
+(defcustom numeri-zero-conversion 'nihil
+  "Specify behavior of `numeri-arabic-to-roman' when given the input 0 (zero)."
+  :type '(choice
+          (const :tag "nihil" nihil)
+          (const :tag "nulla" nulla)
+          (const :tag "nullum" nulla)
+          (const :tag "nullus" nullus)
+          (const :tag "null" null))
+  :group 'numeri)
 
 ;;;###autoload (autoload 'numeri-arabic-to-roman "numeri" nil t)
 (defun numeri-arabic-to-roman (arg1 &optional arg2)
@@ -67,7 +79,10 @@
 
 This command will accept either an Arabic integer number selected as a
 region or input via mini-buffer prompt and convert it to its Roman
-equivalent. The result is copied into the `kill-ring'."
+equivalent. The result is copied into the `kill-ring'.
+
+If the number 0 is input, then the output will be specified by the
+customizable variable `numeri-zero-conversion'."
   (interactive (if (region-active-p)
                    (list (region-beginning) (region-end))
                  (list (read-number "Arabic number: "))))
@@ -75,8 +90,13 @@ equivalent. The result is copied into the `kill-ring'."
   (let ((result nil))
     (if (region-active-p)
         (let ((n (string-to-number (buffer-substring-no-properties arg1 arg2))))
-          (setq result (org-export-number-to-roman n)))
-      (setq result (org-export-number-to-roman arg1)))
+          (if (eq n 0)
+              (setq result (format "%s" numeri-zero-conversion))
+            (setq result (rst-arabic-to-roman n))))
+      (if (eq arg1 0)
+          (progn
+                (setq result (format "%s" numeri-zero-conversion)))
+        (setq result (rst-arabic-to-roman arg1))))
 
     (message "%s" result)
     (kill-new result)
