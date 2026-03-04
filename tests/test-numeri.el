@@ -39,6 +39,17 @@
                (string-equal (numeri-arabic-to-roman input) expected)))
             test-vectors)))
 
+(ert-deftest test-numeri-arabic-to-roman-zero ()
+  (let ((test-vectors '((nihil . "nihil")
+                        (nulla . "nulla")
+                        (nullam . "nullam")
+                        (nullus . "nullus")
+                        (null . "null"))))
+    (map-do (lambda (input expected)
+              (let ((numeri-zero-conversion input))
+                (should (string-equal (numeri-arabic-to-roman 0) expected))))
+            test-vectors)))
+
 (ert-deftest test-numeri-roman-to-arabic ()
   (let ((test-vectors '((1 . "I")
                         (2 . "II")
